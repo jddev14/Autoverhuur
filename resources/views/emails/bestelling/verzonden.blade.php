@@ -21,15 +21,15 @@ $singleauto = [$autosdet[$i]->auto_grootte.' passagiers',$huurovereenkomst->datu
 
 $t = new App\Mail\TextTable($columns,$rows);
 
-$t->setAlgin(['L', 'L', 'L', 'L']);
+$t->setAlgin(['L', 'C', 'C', 'R']);
 echo \PHP_EOL;
 echo $t->render();
 
-$columns2 = [null,null,'Totaal','fls '.$huurovereenkomst->totaal_bedrag.',--'];
+$columns2 = ['Totaal','fls '.$huurovereenkomst->totaal_bedrag.',--'];
 $rows2 = array();
 $t2 = new App\Mail\TextTable($columns2,$rows2);
 
-$t2->setAlgin(['L', 'L', 'R', 'L']);
+$t2->setAlgin(['R', 'R']);
 echo \PHP_EOL;
 echo $t2->render();
 }

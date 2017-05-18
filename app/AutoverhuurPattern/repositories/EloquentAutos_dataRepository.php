@@ -160,6 +160,31 @@ class EloquentAutos_dataRepository extends BaseRepository implements Autos_dataI
         return DB::table('autos')->select('id','auto_grootte')->where('is_beschikbaar',1)->get();
     }
     
+    public function checkAantalBeschikbaar($selecteerdeautos){
+        $autosid = array();
+       
+         $arraysize=sizeof($selecteerdeautos);
+    
+    for ($i=0; $i<$arraysize; ){
+        $checkautos = ['id' => $selecteerdeautos[$i], 'is_beschikbaar' => 1 ];
+        $auto = DB::table('autos')->select('id')->where($checkautos)->first();
+        array_push($autosid,$auto->id);
+         
+        $i++;
+    }
+   
+         $arraysize2=sizeof($autosid);
+         
+    for ($i=0; $i<$arraysize2; $i++){
+       if($autosid == $selecteerdeautos){
+          
+           return $selecteerdeautos;
+       }else{
+           return "false";
+       }
+    }
+    }
+    
        public function getAutos($autos)
     {
          

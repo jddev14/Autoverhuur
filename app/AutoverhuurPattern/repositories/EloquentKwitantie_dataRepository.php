@@ -35,17 +35,18 @@ class EloquentKwitantie_dataRepository extends BaseRepository implements Kwitant
     public function create(array $data,$user,$aantalbeschikbaar)
 
     {
-        $arraysize=sizeof($aantalbeschikbaar);
-        $totaalbedrag = 0;
-        for($i=0;$i<$arraysize;$i++){
-            if(isset($aantalbeschikbaar[$i]->id)){
-            $auto_id =  $aantalbeschikbaar[$i]->id;  
-            }else{
-              $auto_id =  $aantalbeschikbaar[$i];  
+            $arraysize=sizeof($aantalbeschikbaar);
+            $totaalbedrag = 0;
+            for($i=0;$i<$arraysize;$i++){
+                if(isset($aantalbeschikbaar[$i]->id)){
+                $auto_id =  $aantalbeschikbaar[$i]->id;  
+                }else{
+                  $auto_id =  $aantalbeschikbaar[$i];  
+                }
+
+                    $auto = $this->autos->getAuto($auto_id);
+                    $totaalbedrag += $auto->prijs;
             }
- $auto = $this->autos->getAuto($auto_id);
- $totaalbedrag += $auto->prijs;
-        }
              $id=DB::table('kwitantie')->insertGetId([
 
                  'klant_id' => $user,

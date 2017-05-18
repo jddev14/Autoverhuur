@@ -32,10 +32,14 @@ class Huren_DataGateway
          */
        
             if(isset($data['aantalbeschikbaar'])){
-                  $aantalbeschikbaar = $data['aantalbeschikbaar']; 
+                $checkbeschikbaar = $this->adi->checkAantalBeschikbaar($data['aantalbeschikbaar']);
+              
+                if(isset($checkbeschikbaar[0])){
+                     $aantalbeschikbaar =  $checkbeschikbaar;
+                }
             }else{
                 $aantalbeschikbaar = $this->adi->getaantalBeschikbaar($data['aantal_personen']); 
-                
+              
             }
           
             if(isset($aantalbeschikbaar[0])){
@@ -48,7 +52,7 @@ class Huren_DataGateway
                         print_r($checkdays);
                          $user =  $already_user;                  
                     }else{
-                         return array('status' => 'error', 'message' => 'there must be an interval of 14 days to rent again. Current interval: '.$checkdays.' days');
+                         return array('status' => 'error', 'message' => 'there must be an interval of 14 days to rent again. '.$checkdays.' user can rent again');
                     }
                     }else{
                     $user = $this->showKlant($this->kdi->create($data,$blank,$aantalbeschikbaar));
@@ -68,20 +72,22 @@ class Huren_DataGateway
 			} else {
                            return array('status' => 'success', 'data' =>Response::json( [
           
-                            'HuurOvereenkomst' => [
-                            'voornaam' => $user->voornaam,
-                            'achternaam'=> $user->achternaam,
-                            'Email'=> $user->email,
-                                'Kwitantie'=> [
-                                    'aantal_personen'=> $huurovereenkomst->aantal_personen,
-                                    'aantal_dagen'=> $huurovereenkomst->aantal_dagen,
-                                    'datum_ingehuurd'=> $huurovereenkomst->datum_ingehuurd,
-                                    'datum_inlevering'=> $huurovereenkomst->datum_inlevering,
-                                    'totaal_bedrag'=> $huurovereenkomst->totaal_bedrag,
-                                    'autos'=> $this->KWAutos($autosdet)
+                                'HuurOvereenkomst' => [
+                                'voornaam' => $user->voornaam,
+                                'achternaam'=> $user->achternaam,
+                                'Email'=> $user->email,
+                                    'Kwitantie'=> [
+                                        'aantal_personen'=> $huurovereenkomst->aantal_personen,
+                                        'aantal_dagen'=> $huurovereenkomst->aantal_dagen,
+                                        'datum_ingehuurd'=> $huurovereenkomst->datum_ingehuurd,
+                                        'datum_inlevering'=> $huurovereenkomst->datum_inlevering,
+                                        'totaal_bedrag'=> $huurovereenkomst->totaal_bedrag,
+                                        'autos'=> $this->KWAutos($autosdet)
 
+                                    ]
+                                   
                                 ]
-                           ]]));
+                           ]));
 
 			}
             }else{
@@ -133,11 +139,13 @@ class Huren_DataGateway
     }
     
     public function CheckDays($user) {
-    $getlastdate = $this->kwdi->getLastDate($user);    
-    $lastdate = Carbon::parse($getlastdate);
-    $now = Carbon::now('America/Curacao');
-
-    $diff = $lastdate->diffInDays($now); 
-    return $diff;
+        $getlastdate = $this->kwdi->getLastDate($user);    
+        $lastdate = Carbon::parse($getlastdate);
+        $now = Carbon::now('America/Curacao');
+  
+        $diff = $lastdate->diffForHumans($now); 
+        
+            return $diff;
+  
     }
 }

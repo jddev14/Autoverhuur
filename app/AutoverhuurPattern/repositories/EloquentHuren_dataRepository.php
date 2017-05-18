@@ -45,8 +45,9 @@ class EloquentHuren_dataRepository extends BaseRepository implements Huren_dataI
  
  $kwitantie_id = $this->kwitantie->create($data,$user,$aantalbeschikbaar);
         for($i=0;$i<$arraysize;$i++){
-             $auto = $this->autos->getAuto($aantalbeschikbaar[$i]->id);
+             
              if(isset($aantalbeschikbaar[$i]->id)){
+                 $auto = $this->autos->getAuto($aantalbeschikbaar[$i]->id);
                  DB::table('huren')->insert([
 
                  'kwitantie_id'=>  $kwitantie_id,
@@ -54,6 +55,7 @@ class EloquentHuren_dataRepository extends BaseRepository implements Huren_dataI
                  'prijs' => $auto->prijs
                  
              ]);}else{
+                 $auto = $this->autos->getAuto($aantalbeschikbaar[$i]);
                  DB::table('huren')->insert([
 
                  'kwitantie_id'=>  $kwitantie_id,
