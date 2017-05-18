@@ -14,18 +14,18 @@ class BestellingVerzonden extends Mailable
     
         public $user;
         public $huurovereenkomst;
-        public $auto;
+        public $autosdet;
     
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user, $huurovereenkomst, $auto)
+    public function __construct($user, $huurovereenkomst, $autosdet)
     {
         $this->user = $user;
         $this->huurovereenkomst = $huurovereenkomst;
-        $this->auto = $auto;
+        $this->autosdet = $autosdet;
     }
 
     /**

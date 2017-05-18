@@ -34,7 +34,7 @@ abstract class BaseRepository {
     public function create(array $data,$user,$aantalbeschikbaar) {
         return $this->model->create($data);
     }
-    public function update(array $data,$aantalbeschikbaar) {
+    public function update(array $data,$user,$aantalbeschikbaar) {
         $user = $this->get($data['id']);
         foreach($data as $key => $value) {
             $user->$key = $value;

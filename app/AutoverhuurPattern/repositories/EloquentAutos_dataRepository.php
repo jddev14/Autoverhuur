@@ -43,24 +43,30 @@ class EloquentAutos_dataRepository extends BaseRepository implements Autos_dataI
         return $id;
 
     }
-    public function update(array $aantalbeschikbaar,$user){
+    public function update(array $data,$klant_id,$aantalbeschikbaar){
         $arraysize=sizeof($aantalbeschikbaar);
-
+        
         for($i=0;$i<$arraysize;$i++){
-        $beschikbaarheid = DB::table('autos')->select('is_beschikbaar')->where('id',$aantalbeschikbaar[$i]->id)->get();    
-        print_r($beschikbaarheid[0]);
+              if(isset($aantalbeschikbaar[$i]->id)){
+            $auto_id =  $aantalbeschikbaar[$i]->id;  
+            }else{
+              $auto_id =  $aantalbeschikbaar[$i];  
+            }
+        $beschikbaarheid = DB::table('autos')->select('is_beschikbaar')->where('id',$auto_id)->get();    
+   
         if($beschikbaarheid[0]->is_beschikbaar === 0){
-        DB::table('autos')->where('id', $aantalbeschikbaar[$i]->id)->update([
+            
+        DB::table('autos')->where('id', $auto_id)->update([
         
             'is_beschikbaar'=> 1,
             'courant_huurder_id' => null
 
         ]);
         }else{
-        DB::table('autos')->where('id', $aantalbeschikbaar[$i]->id)->update([
+        DB::table('autos')->where('id', $auto_id)->update([
         
             'is_beschikbaar'=> 0,
-            'courant_huurder_id' => $user
+            'courant_huurder_id' => $klant_id
 
         ]);
         }
@@ -100,10 +106,19 @@ class EloquentAutos_dataRepository extends BaseRepository implements Autos_dataI
     
     function KaantalPersonen($passagiers){
        
-        $checkautos = ['auto_grootte' => $passagiers, 'is_beschikbaar' === 1 ];
+        $checkautos = ['auto_grootte' => $passagiers, 'is_beschikbaar' => 1 ];
 
-        $aantalbeschikbaar = DB::table('autos')->select('id')->where($checkautos)->get();
-   
+        $aantalbeschikbaar  = array();
+        $autoobject = DB::table('autos')->select('id')->where($checkautos)->first();
+        array_push($aantalbeschikbaar, $autoobject);
+        if(isset($aantalbeschikbaar)){
+         
+        
+              return $aantalbeschikbaar;
+      
+      }else{
+          return null;  
+      }
         return $aantalbeschikbaar;
       
     }
@@ -132,11 +147,11 @@ class EloquentAutos_dataRepository extends BaseRepository implements Autos_dataI
     
       if($aantaloptelsom >= $aantP){
          
-          print_r($aantautos);
+        
               return $aantautos;
       
       }else{
-          echo 'there are not enough for your order';
+          return null;  
       }
    
     }
@@ -145,11 +160,24 @@ class EloquentAutos_dataRepository extends BaseRepository implements Autos_dataI
         return DB::table('autos')->select('id','auto_grootte')->where('is_beschikbaar',1)->get();
     }
     
-       public function getAuto($id)
+       public function getAutos($autos)
     {
-        return DB::table('autos')->where('id', $id)->first();
+         
+        $autosdet = array();
+         $arraysize=sizeof($autos);
+    for ($i=0; $i<$arraysize; $i++){
+        $auto = DB::table('autos')->where('id', $autos[$i]->auto_id)->first();
+        array_push($autosdet,$auto);
     }
     
+    return $autosdet;
+    }
+    
+     public function getAuto($id)
+    {
+         return DB::table('autos')->where('id', $id)->first();
+   
+    }
        
     public function getLatestTime()
     {

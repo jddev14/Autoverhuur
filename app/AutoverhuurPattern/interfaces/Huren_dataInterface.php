@@ -15,7 +15,7 @@ interface Huren_dataInterface {
 
    // public function getUserById($id);
     public function create(array $data,$user,$aantalbeschikbaar);
-    public function getHuurOvereenkomst($id);
+    public function getHOAutos($id);
    // public function getLatestTime();
 }
 

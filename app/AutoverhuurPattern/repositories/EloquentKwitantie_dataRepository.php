@@ -9,7 +9,8 @@
 namespace App\AutoverhuurPattern\Repositories;
 use App\AutoverhuurPattern\Interfaces\Kwitantie_dataInterface;
 
-use App\Huren as Huren;
+use App\Kwitantie as Kwitantie;
+use App\AutoverhuurPattern\Interfaces\Autos_dataInterface as Autos;
 use Illuminate\Support\Facades\DB;
 
 class EloquentKwitantie_dataRepository extends BaseRepository implements Kwitantie_dataInterface
@@ -17,15 +18,16 @@ class EloquentKwitantie_dataRepository extends BaseRepository implements Kwitant
     protected $i;
     protected $huren;
     
-    public function __construct(Huren $huren) {
-        $this->huren = $huren;
+    public function __construct(Kwitantie $kwitantie, Autos $autos) {
+        $this->kwitantie = $kwitantie;
+        $this->autos =$autos;
     }
     
     public function getAllUsers()
 
     {
 
-        return Huren::all();
+        return Kwitantie::all();
 
     }
 
@@ -33,7 +35,17 @@ class EloquentKwitantie_dataRepository extends BaseRepository implements Kwitant
     public function create(array $data,$user,$aantalbeschikbaar)
 
     {
-echo 'aki mi ta             ';
+        $arraysize=sizeof($aantalbeschikbaar);
+        $totaalbedrag = 0;
+        for($i=0;$i<$arraysize;$i++){
+            if(isset($aantalbeschikbaar[$i]->id)){
+            $auto_id =  $aantalbeschikbaar[$i]->id;  
+            }else{
+              $auto_id =  $aantalbeschikbaar[$i];  
+            }
+ $auto = $this->autos->getAuto($auto_id);
+ $totaalbedrag += $auto->prijs;
+        }
              $id=DB::table('kwitantie')->insertGetId([
 
                  'klant_id' => $user,
@@ -42,17 +54,20 @@ echo 'aki mi ta             ';
                  'datum_ingehuurd' => $data['datum_ingehuurd'],
                  'datum_ingeleverd' => $data['datum_ingeleverd'],
                  'datum_inlevering'=> $data['datum_inlevering'],
-                 'totaal_bedrag'=> 500
+                 'totaal_bedrag'=> $totaalbedrag
              ]);
         
         return $id;
 
     }
-
+  
     public function getHuurOvereenkomst($id)
     {
-        return DB::table('huren')->where('id', $id)->first();
+        return DB::table('kwitantie')->where('id', $id)->first();
     }
 
+    public function getLastDate($user) {
+        return DB::table('kwitantie')->where('klant_id', $user->id)->max('datum_ingehuurd');
+    }
    
 }

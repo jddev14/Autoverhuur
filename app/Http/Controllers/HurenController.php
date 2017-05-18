@@ -51,10 +51,10 @@ class HurenController extends Controller
     public function store(Request $request)
     {
        
-        /*$validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'voornaam' => 'required',
             'achternaam' => 'required',
-            'email' => 'unique:klanten_info,email',
+            'email' => 'required|email',
             'aantal_personen' => 'required|numeric',
             'aantal_dagen' => 'required|numeric|between:3,14',
             'datum_ingehuurd' => 'required|date',
@@ -66,14 +66,12 @@ class HurenController extends Controller
             $errors = $validator->errors();
 
             print_r($errors);
-        }*/
+        }
 
         $data = $this->weatherdc->create($request->all());
 
         if ($data['status'] == 'success') {
-            return  Response::json(array(
-                'status' => 'success',
-                'data' =>$data,));
+            return $data;
 
         }else{
             return  Response::json(array(

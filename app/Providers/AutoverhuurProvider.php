@@ -8,7 +8,7 @@ use App\AutoverhuurPattern\Gateway\Huren_DataGateway;
 use App\AutoverhuurPattern\Repositories\EloquentHuren_dataRepository;
 use App\AutoverhuurPattern\Repositories\EloquentKlanten_dataRepository;
 use App\AutoverhuurPattern\Repositories\EloquentAutos_dataRepository;
-
+use App\AutoverhuurPattern\Repositories\EloquentKwitantie_dataRepository;
 class AutoverhuurProvider extends ServiceProvider
 {
     /**
@@ -52,13 +52,13 @@ class AutoverhuurProvider extends ServiceProvider
             
 
         $this->app->bind('App\AutoverhuurPattern\Repositories\EloquentHuren_dataRepository', function()   {
-            return new EloquentHuren_dataRepository($this->app->make('App\Huren'),$this->app->make('App\AutoverhuurPattern\Repositories\EloquentKwitantie_dataRepository'));       });
+            return new EloquentHuren_dataRepository($this->app->make('App\Huren'),$this->app->make('App\AutoverhuurPattern\Repositories\EloquentKwitantie_dataRepository'),$this->app->make('App\AutoverhuurPattern\Repositories\EloquentAutos_dataRepository') );    });
          $this->app->bind('App\AutoverhuurPattern\Repositories\EloquentAutos_dataRepository', function()   {
             return new EloquentAutos_dataRepository($this->app->make('App\Autos'));       });
          $this->app->bind('App\AutoverhuurPattern\Repositories\EloquentKlanten_dataRepository', function()   {
             return new EloquentKlanten_dataRepository($this->app->make('App\Klanten'));       });
         
-        $this->app->bind('App\AutoverhuurPattern\Repositories\EloquentKlanten_dataRepository', function()   {
-            return new EloquentKlanten_dataRepository($this->app->make('App\Klanten')); });    
+        $this->app->bind('App\AutoverhuurPattern\Repositories\EloquentKwitantie_dataRepository', function()   {
+            return new EloquentKwitantie_dataRepository($this->app->make('App\Kwitantie'),$this->app->make('App\AutoverhuurPattern\Repositories\EloquentAutos_dataRepository') ); });    
     }
 }

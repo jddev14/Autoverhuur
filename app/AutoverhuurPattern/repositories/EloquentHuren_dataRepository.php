@@ -8,6 +8,7 @@
 
 namespace App\AutoverhuurPattern\Repositories;
 use App\AutoverhuurPattern\Interfaces\Huren_dataInterface;
+use App\AutoverhuurPattern\Interfaces\Autos_dataInterface as Autos;
 use App\AutoverhuurPattern\Interfaces\Kwitantie_dataInterface as Kwitantie_I;
 use App\Huren as Huren;
 use Illuminate\Support\Facades\DB;
@@ -22,9 +23,10 @@ class EloquentHuren_dataRepository extends BaseRepository implements Huren_dataI
     protected $i;
     protected $huren;
     
-    public function __construct(Huren $huren, Kwitantie_I $kwitantie) {
+    public function __construct(Huren $huren, Kwitantie_I $kwitantie, Autos $autos) {
         $this->huren = $huren;
         $this->kwitantie = $kwitantie;
+        $this->autos =$autos;
     }
     
     public function getAllUsers()
@@ -40,24 +42,34 @@ class EloquentHuren_dataRepository extends BaseRepository implements Huren_dataI
 
     {
  $arraysize=sizeof($aantalbeschikbaar);
+ 
  $kwitantie_id = $this->kwitantie->create($data,$user,$aantalbeschikbaar);
- print_r($kwitantie_id);
         for($i=0;$i<$arraysize;$i++){
-             DB::table('huren')->insert([
+             $auto = $this->autos->getAuto($aantalbeschikbaar[$i]->id);
+             if(isset($aantalbeschikbaar[$i]->id)){
+                 DB::table('huren')->insert([
 
                  'kwitantie_id'=>  $kwitantie_id,
                  'auto_id' => $aantalbeschikbaar[$i]->id,
-                 'prijs' => $aantalbeschikbaar[$i]->prijs
+                 'prijs' => $auto->prijs
+                 
+             ]);}else{
+                 DB::table('huren')->insert([
+
+                 'kwitantie_id'=>  $kwitantie_id,
+                 'auto_id' => $aantalbeschikbaar[$i],
+                 'prijs' => $auto->prijs
                  
              ]);
+             }
         }
     
-
+return $kwitantie_id;
     }
 
-    public function getHuurOvereenkomst($id)
+    public function getHOAutos($id)
     {
-        return DB::table('huren')->where('id', $id)->first();
+        return DB::table('huren')->select('auto_id')->where('kwitantie_id', $id)->get();
     }
 
    

@@ -7,20 +7,22 @@
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/gateway/Huren_DataGateway.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Autos.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Mail/BestellingVerzonden.php</file>
-            <file>file:/C:/xampp/htdocs/autoverhuur_jd/resources/views/emails/bestelling/verzonden.blade.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/repositories/EloquentKwitantie_dataRepository.php</file>
+            <file>file:/C:/xampp/htdocs/autoverhuur_jd/resources/views/emails/bestelling/verzonden.blade.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Klanten.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Kwitantie.php</file>
+            <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Mail/TextTable.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Huren.php</file>
+            <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/gateway/Auto_DataGateway.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/repositories/EloquentHuren_dataRepository.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Providers/AutoverhuurProvider.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/routes/api.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/interfaces/Autos_dataInterface.php</file>
-            <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Http/Controllers/HurenController.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/interfaces/Kwitantie_dataInterface.php</file>
+            <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Http/Controllers/HurenController.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/repositories/EloquentAutos_dataRepository.php</file>
-            <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/repositories/EloquentKlanten_dataRepository.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/repositories/EloquentKlanten_dataRepository.php</file>
         </group>
     </open-files>
 </project-private>

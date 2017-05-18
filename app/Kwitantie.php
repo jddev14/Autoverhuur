@@ -10,7 +10,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Huren extends Eloquent {
+class Kwitantie extends Eloquent {
     protected $table = 'kwitantie';
     // MASS ASSIGNMENT -------------------------------------------------------
     // define which attributes are mass assignable (for security)

@@ -45,6 +45,10 @@ class EloquentKlanten_dataRepository extends BaseRepository implements Klanten_d
 
     }
 
+    public function checkEmail($email) {
+        return DB::table('klanten_info')->where('email', $email)->first();
+    }
+    
     public function getKlant($id)
     {
         return DB::table('klanten_info')->where('id', $id)->first();

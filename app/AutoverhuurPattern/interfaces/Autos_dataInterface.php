@@ -15,11 +15,12 @@ interface Autos_dataInterface {
 
     // public function getUserById($id);
     public function create(array $data,$user,$aantalbeschikbaar);
-    public function update(array $aantalbeschikbaar, $user);
+    public function update(array $data,$klant_id,$aantalbeschikbaar);
     public function getisBeschikbaar($aantP);
     public function getaantalBeschikbaar($aantP);
     public function getBeschikbareAutos();
     public function getAuto($id);
+    public function getAutos($autos);
     public function getLatestTime();
     
 }
