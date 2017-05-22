@@ -2,7 +2,7 @@
 
 namespace App\AutoverhuurPattern\Gateway;
 
-//use App\Kairos_rpattern\Repositories\EloquentWeather_dataRepository;
+
 use App\AutoverhuurPattern\Interfaces\Huren_dataInterface;
 use App\AutoverhuurPattern\Interfaces\Klanten_dataInterface;
 use App\AutoverhuurPattern\Interfaces\Kwitantie_dataInterface;
@@ -151,8 +151,8 @@ class Huren_DataGateway
     
     public function update($data,$id) {
         
-       $aantalbeschikbaar = $this->hdi->getHOAutos($id);
-           print_r($aantalbeschikbaar);
+        $aantalbeschikbaar = $this->hdi->getHOAutos($id);
+         
         $updatekwitantie = $this->kwdi->update($data,$id,$aantalbeschikbaar);
         
         $klant_id = $updatekwitantie->klant_id;

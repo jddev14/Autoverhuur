@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: JohnnyD
- * Date: 5/11/2016
- * Time: 10:25 AM
- */
 
 namespace App\AutoverhuurPattern\Repositories;
 use App\AutoverhuurPattern\Interfaces\Klanten_dataInterface;
