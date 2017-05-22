@@ -52,7 +52,7 @@ class Huren_DataGateway
                         print_r($checkdays);
                          $user =  $already_user;                  
                     }else{
-                         return array('status' => 'error', 'message' => 'there must be an interval of 14 days to rent again. '.$checkdays.' user can rent again');
+                         return array('status' => 'error', 'message' => 'there must be an interval of 14 days to rent again. '.$checkdays.' days left');
                     }
                     }else{
                     $user = $this->showKlant($this->kdi->create($data,$blank,$aantalbeschikbaar));
@@ -139,13 +139,37 @@ class Huren_DataGateway
     }
     
     public function CheckDays($user) {
-        $getlastdate = $this->kwdi->getLastDate($user);    
+        $getlastdate = $this->kwdi->getLastDate($user);
         $lastdate = Carbon::parse($getlastdate);
         $now = Carbon::now('America/Curacao');
   
-        $diff = $lastdate->diffForHumans($now); 
-        
+        $diff = $lastdate->diffInDays($now); 
+       
             return $diff;
   
+    }
+    
+    public function update($data,$id) {
+        
+        $aantalbeschikbaar = $this->hdi->getHOAutos($id);
+        $updatekwitantie = $this->kwdi->update($data,$id,$aantalbeschikbaar);
+   
+        $klant_id = $updatekwitantie->klant_id;
+        $updatebeschikbaarheid = $this->adi->update($data,$klant_id,$aantalbeschikbaar);
+       
+        if(isset($updatebeschikbaarheid) && isset($updatekwitantie)){
+     		
+                           return array('status' => 'success', 'data' =>Response::json( [
+          
+                                   'HuurOvereenkomst' => [  
+                                        'kwitantie'=> $updatekwitantie,
+                                        'autos'=> $updatebeschikbaarheid
+
+                                   ]
+                          ]));
+
+			}else{
+                     return array('status' => 'error', 'message' => 'Failed to update auto\'s!');         
+      }
     }
 }

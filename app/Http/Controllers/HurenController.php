@@ -17,30 +17,15 @@ class HurenController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function __construct(Huren_DataGateway $weatherdc)
-    {
-
-        $this->weatherdc = $weatherdc;
-
-
-    }
     
-    public function index()
+    public function __construct(Huren_DataGateway $huuro)
     {
 
-    }
+        $this->huuro = $huuro;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-       // $input = Input::all();
-       
-      
+
     }
+ 
 
     /**
      * Store a newly created resource in storage.
@@ -50,7 +35,6 @@ class HurenController extends Controller
      */
     public function store(Request $request)
     {
-       
         $validator = Validator::make($request->all(), [
             'voornaam' => 'required',
             'achternaam' => 'required',
@@ -64,11 +48,12 @@ class HurenController extends Controller
         if ($validator->fails()) {
             
             $errors = $validator->errors();
-
-            print_r($errors);
+            return  Response::json(array(
+                'status' => 'error',
+                'message' => $errors
+        ));
         }
-
-        $data = $this->weatherdc->create($request->all());
+        $data = $this->huuro->create($request->all());
 
         if ($data['status'] == 'success') {
             return $data;
@@ -89,7 +74,7 @@ class HurenController extends Controller
      */
     public function show($id)
     {
-        $data = $this->weatherdc->showdata($id);
+        $data = $this->huuro->showdata($id);
 
         if ($data['status'] == 'success') {
             return  Response::json(array(
@@ -106,37 +91,20 @@ class HurenController extends Controller
            	}
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+     public function update(Request $request, $id)
     {
-        //
+         print_r($id);
+         print_r($request->all());
+         $data = $this->huuro->update($request->all(), $id);
+           if ($data['status'] == 'success') {
+            return $data;
+
+        }else{
+            return  Response::json(array(
+                'status' => 'error',
+                'message' => $data['message']
+        ));
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

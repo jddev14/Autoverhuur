@@ -11,11 +11,10 @@ namespace App\AutoverhuurPattern\Interfaces;
 
 interface Huren_dataInterface {
 
-    public function getAllUsers();
+    public function getAllHuren();
 
-   // public function getUserById($id);
     public function create(array $data,$user,$aantalbeschikbaar);
     public function getHOAutos($id);
-   // public function getLatestTime();
+
 }
 

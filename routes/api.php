@@ -18,4 +18,4 @@ use Illuminate\Http\Request;
 });*/
 
 Route::resource('huren', 'HurenController');
-Route::resource('/', 'AutosController');
+Route::resource('autos', 'AutosController');

@@ -29,7 +29,7 @@ class EloquentHuren_dataRepository extends BaseRepository implements Huren_dataI
         $this->autos =$autos;
     }
     
-    public function getAllUsers()
+    public function getAllHuren()
 
     {
 
@@ -68,11 +68,14 @@ class EloquentHuren_dataRepository extends BaseRepository implements Huren_dataI
     
 return $kwitantie_id;
     }
+    
+     
 
     public function getHOAutos($id)
     {
         return DB::table('huren')->select('auto_id')->where('kwitantie_id', $id)->get();
     }
 
+    
    
 }

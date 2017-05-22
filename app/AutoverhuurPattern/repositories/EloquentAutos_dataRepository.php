@@ -71,7 +71,9 @@ class EloquentAutos_dataRepository extends BaseRepository implements Autos_dataI
         ]);
         }
         }
+        return $this->getAutos($aantalbeschikbaar);
     }
+  
     public function getisBeschikbaar($passagiers)
     {
         //return Autos::whereRaw('id = (select max(`id`) from weather_data)')->get();
@@ -187,11 +189,19 @@ class EloquentAutos_dataRepository extends BaseRepository implements Autos_dataI
     
        public function getAutos($autos)
     {
-         
+        
         $autosdet = array();
          $arraysize=sizeof($autos);
+         
     for ($i=0; $i<$arraysize; $i++){
-        $auto = DB::table('autos')->where('id', $autos[$i]->auto_id)->first();
+        if(isset($autos[$i]->auto_id)){
+             $id = $autos[$i]->auto_id;
+         }else if(isset ($autos[$i]->id)){
+             $id = $autos[$i]->id;
+         }else{
+             $id = $autos[$i];
+         }
+        $auto = DB::table('autos')->where('id', $id)->first();
         array_push($autosdet,$auto);
     }
     

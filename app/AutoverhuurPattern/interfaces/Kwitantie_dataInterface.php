@@ -17,6 +17,7 @@ interface Kwitantie_dataInterface {
     public function create(array $data,$user,$aantalbeschikbaar);
     public function getHuurOvereenkomst($id);
     public function getLastDate($user);
+    public function update(array $data,$id,$aantalbeschikbaar);
    // public function getLatestTime();
 }
 

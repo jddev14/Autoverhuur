@@ -62,6 +62,16 @@ class EloquentKwitantie_dataRepository extends BaseRepository implements Kwitant
 
     }
   
+    public function update(array $data,$id,$aantalbeschikbaar) {
+        print_r($id);
+        DB::table('kwitantie')->where('id', $id)->update([
+        
+            'datum_ingeleverd'=> $data['datum_ingeleverd']
+        ]);
+        $kwitantie = DB::table('kwitantie')->where('id', $id)->first();
+        return $kwitantie;
+      
+    }
     public function getHuurOvereenkomst($id)
     {
         return DB::table('kwitantie')->where('id', $id)->first();

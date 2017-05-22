@@ -14,6 +14,7 @@
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Mail/TextTable.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Huren.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/gateway/Auto_DataGateway.php</file>
+            <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Http/Controllers/AutosController.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/AutoverhuurPattern/repositories/EloquentHuren_dataRepository.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/app/Providers/AutoverhuurProvider.php</file>
             <file>file:/C:/xampp/htdocs/autoverhuur_jd/routes/api.php</file>
