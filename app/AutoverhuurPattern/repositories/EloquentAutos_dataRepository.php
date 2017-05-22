@@ -49,6 +49,8 @@ class EloquentAutos_dataRepository extends BaseRepository implements Autos_dataI
         for($i=0;$i<$arraysize;$i++){
               if(isset($aantalbeschikbaar[$i]->id)){
             $auto_id =  $aantalbeschikbaar[$i]->id;  
+            }else  if(isset($aantalbeschikbaar[$i]->auto_id)){
+            $auto_id =  $aantalbeschikbaar[$i]->auto_id;  
             }else{
               $auto_id =  $aantalbeschikbaar[$i];  
             }

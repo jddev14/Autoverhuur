@@ -63,7 +63,7 @@ class EloquentKwitantie_dataRepository extends BaseRepository implements Kwitant
     }
   
     public function update(array $data,$id,$aantalbeschikbaar) {
-        print_r($id);
+       
         DB::table('kwitantie')->where('id', $id)->update([
         
             'datum_ingeleverd'=> $data['datum_ingeleverd']

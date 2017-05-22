@@ -93,8 +93,7 @@ class HurenController extends Controller
 
      public function update(Request $request, $id)
     {
-         print_r($id);
-         print_r($request->all());
+        
          $data = $this->huuro->update($request->all(), $id);
            if ($data['status'] == 'success') {
             return $data;

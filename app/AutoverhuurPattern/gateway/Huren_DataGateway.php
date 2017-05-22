@@ -151,12 +151,17 @@ class Huren_DataGateway
     
     public function update($data,$id) {
         
-        $aantalbeschikbaar = $this->hdi->getHOAutos($id);
+       $aantalbeschikbaar = $this->hdi->getHOAutos($id);
+           print_r($aantalbeschikbaar);
         $updatekwitantie = $this->kwdi->update($data,$id,$aantalbeschikbaar);
-   
+        
         $klant_id = $updatekwitantie->klant_id;
+ 
         $updatebeschikbaarheid = $this->adi->update($data,$klant_id,$aantalbeschikbaar);
        
+        
+        
+    
         if(isset($updatebeschikbaarheid) && isset($updatekwitantie)){
      		
                            return array('status' => 'success', 'data' =>Response::json( [
